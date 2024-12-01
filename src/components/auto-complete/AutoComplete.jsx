@@ -1,20 +1,20 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SuggestionsList from "./SuggestionsList";
-import SelectedItems from "./SelectedItems";
 
 export const AutoComplete = ({
   placeholder,
   CustomLoading,
   fetchSuggestions,
+  onSelect,
 }) => {
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  const [selected, setSelected] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const [isSelecting, setIsSelecting] = useState(false);
   const onChangeInput = (event) => {
+    setIsSelecting(false);
     setInputValue(event.target.value);
   };
 
@@ -32,29 +32,10 @@ export const AutoComplete = ({
     }
   };
 
-  const onSelect = (value) => {
-    setSelected([...selected, value.title]);
-  };
-
-  console.log(suggestions);
-
-  const handleKeyPress = (event) => {
-    if (
-      inputValue.length === 0 &&
-      selected?.length > 0 &&
-      event.key === "Backspace"
-    ) {
-      const newSelected = [...selected];
-      newSelected.pop();
-      setSelected(newSelected);
-    }
-  };
-
-  const unselect = (id) => {
-    setSelected(selected.filter((_, index) => id !== index));
-  };
-
   useEffect(() => {
+    if (isSelecting) {
+      return;
+    }
     let timeout;
     if (inputValue.length > 0) {
       timeout = setTimeout(() => {
@@ -71,22 +52,24 @@ export const AutoComplete = ({
   return (
     <>
       <div className="w-[500px] flex flex-wrap gap-2 border-2 p-2 rounded-md">
-        {selected?.length > 0 && (
-          <SelectedItems unselect={unselect} selected={selected} />
-        )}{" "}
         <input
           className="w-full outline-none"
           type="text"
           placeholder={placeholder}
           value={inputValue}
-          onKeyDown={handleKeyPress}
           onChange={onChangeInput}
         />
       </div>
       {loading && <p>{CustomLoading}</p>}
       <div className="relative">
-        {inputValue?.length > 0 && suggestions?.length > 0 && !loading && (
-          <SuggestionsList onSelectItem={onSelect} suggestions={suggestions} />
+        {suggestions?.length > 0 && !loading && (
+          <SuggestionsList
+            onSelectItem={onSelect}
+            setSuggestions={setSuggestions}
+            setIsSelecting={setIsSelecting}
+            suggestions={suggestions}
+            setInputValue={setInputValue}
+          />
         )}
       </div>
     </>
