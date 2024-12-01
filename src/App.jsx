@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { fetchMovies } from "./utils/api";
 import Map from "./components/Map";
 import { AutoComplete } from "./components/auto-complete/AutoComplete";
+import { Locate, MapPin } from "lucide-react";
+import PopularPlaceSection from "./components/PopularPlaceSection";
 
 const App = () => {
   const [movies, setMovies] = useState([]);
@@ -22,17 +24,25 @@ const App = () => {
     return result;
   };
 
+
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-center text-4xl font-bold">SF Movie Locations</h1>
-      <AutoComplete
-        placeholder="enter Recipe"
-        fetchSuggestions={handleSearch}
-        onSelect={() => {}}
-        CustomLoading={<>...Loading</>}
-        onChange={() => {}}
-      />
-      <Map movieLocations={movies} />
+    <div className="min-h-screen p-10">
+      {/* <h1 className="text-center text-2xl  font-bold">SF Movie Locations</h1> */}
+      <div className="w-full flex justify-between gap-10 flex-col md:flex-row">
+      <section className="md:w-[48%] w-full">
+        <AutoComplete
+          placeholder="Search Places.."
+          fetchSuggestions={handleSearch}
+          onSelect={() => {}}
+          CustomLoading={<>...Loading</>}
+          onChange={() => {}}
+        />
+        <PopularPlaceSection movies={movies}/>
+      </section>
+      <section className="flex-1">
+        <Map movieLocations={movies} />
+      </section>
+      </div>
     </div>
   );
 };

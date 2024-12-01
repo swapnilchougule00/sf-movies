@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import SuggestionsList from "./SuggestionsList";
 import SelectedItems from "./SelectedItems";
+import { Search } from "lucide-react";
 
 export const AutoComplete = ({
   placeholder,
@@ -36,7 +37,6 @@ export const AutoComplete = ({
     setSelected([...selected, value.title]);
   };
 
-  console.log(suggestions);
 
   const handleKeyPress = (event) => {
     if (
@@ -70,10 +70,7 @@ export const AutoComplete = ({
 
   return (
     <>
-      <div className="w-[500px] flex flex-wrap gap-2 border-2 p-2 rounded-md">
-        {selected?.length > 0 && (
-          <SelectedItems unselect={unselect} selected={selected} />
-        )}{" "}
+      <div className="w-full flex gap-2 border-2 py-2 pr-4 pl-10 rounded-xl relative">
         <input
           className="w-full outline-none"
           type="text"
@@ -82,13 +79,13 @@ export const AutoComplete = ({
           onKeyDown={handleKeyPress}
           onChange={onChangeInput}
         />
-      </div>
-      {loading && <p>{CustomLoading}</p>}
-      <div className="relative">
+        <Search className="h-4 w-4 absolute left-4 top-1/2 -translate-y-1/2"/>
         {inputValue?.length > 0 && suggestions?.length > 0 && !loading && (
           <SuggestionsList onSelectItem={onSelect} suggestions={suggestions} />
         )}
       </div>
+      {loading && <p>{CustomLoading}</p>}
+        
     </>
   );
 };

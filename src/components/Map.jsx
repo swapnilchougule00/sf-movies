@@ -7,7 +7,7 @@ const Map = ({ movieLocations }) => {
     const fetchCoordinates = async () => {
       const response = await fetch(
         `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-          "916 Grant Avenue, Chinatown, San Francisco"
+          "100 St. Germain Avenue"
         )}`
       );
       const data = await response.json();
@@ -25,11 +25,11 @@ const Map = ({ movieLocations }) => {
   if (!coordinates) return <p>Loading map...</p>;
 
   return (
-    <div className="z-10">
+    <div className="z-10 rounded-xl overflow-hidden">
       <MapContainer
         center={[coordinates.lat, coordinates.lon]}
         zoom={13}
-        style={{ height: "500px", width: "100%", zIndex: 1 }}
+        style={{ height: "500px", minWidth:"500px", width: "100%", zIndex: 1 }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
