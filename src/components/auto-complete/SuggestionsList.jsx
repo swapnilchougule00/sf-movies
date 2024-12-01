@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import { Search } from "lucide-react";
+
 const SuggestionsList = ({
   suggestions,
   setSuggestions,
@@ -7,20 +9,24 @@ const SuggestionsList = ({
   setInputValue,
 }) => {
   return (
-    <div className="border w-[500px] absolute z-20 top-0  left-0 *:p-2 *:cursor-pointer">
+    <div className="border bg-white shadow-lg rounded-xl overflow-hidden w-full absolute left-0 translate-y-full -bottom-2 z-20 py-2">
       {suggestions?.map((item, index) => (
-        <p
-          className="border bg-white"
+        <div
+          className="px-5 py-3 cursor-pointer flex items-center justify-start gap-4 hover:bg-slate-50"
+          key={index}
           onClick={() => {
             setIsSelecting(true);
             onSelectItem(item);
             setInputValue(item.title);
             setSuggestions([]);
           }}
-          key={index}
         >
-          {item.title}
-        </p>
+          <Search className="h-4 w-4" />
+
+          <p className="" onClick={() => onSelectItem(item)} key={index}>
+            {item.title}
+          </p>
+        </div>
       ))}
     </div>
   );

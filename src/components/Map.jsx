@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { toast } from "react-toastify";
 
 const Map = ({ movieLocations }) => {
-  const defaultPosition = [37.7749, -122.4194];
+  const defaultPosition = [37.7749, -122.4194]; //san fransisco lat, lon
   const [coordinates, setCoordinates] = useState([]);
 
   const fetchCoordinates = async (location) => {
@@ -19,6 +20,8 @@ const Map = ({ movieLocations }) => {
           lat: parseFloat(data[0].lat),
           lon: parseFloat(data[0].lon),
         };
+      } else {
+        // toast.error("Location not found");
       }
       return null;
     } catch (err) {
@@ -42,7 +45,7 @@ const Map = ({ movieLocations }) => {
   }, [movieLocations]);
 
   return (
-    <div className="z-10">
+    <div className="z-10 rounded-xl overflow-hidden">
       <MapContainer
         center={defaultPosition}
         zoom={12}
