@@ -1,8 +1,33 @@
-# React + Vite
+# SF Movies 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a React-based web application styled with Tailwind CSS. It uses **React-Leaflet** to display a map with markers for movie locations in San Francisco.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Interactive Map**: Displays movie locations on a map using markers.
+- **Autocomplete Search**: Search for specific movie with an autocomplete functionality.
+- **Popular Locations**: A dedicated section highlighting popular filming locations.
+
+---
+
+## Technologies Used
+
+- **React**: For building the UI.
+- **Tailwind CSS**: For styling.
+- **React-Leaflet**: For integrating maps and markers.
+
+---
+
+## How to Run the Project
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/swapnilchougule00/sf-movies.git
+   ```
+   cd sf-movies
+   ```
+   npm i
+   ```
+   npm run dev
+
+---
